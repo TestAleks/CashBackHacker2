@@ -4,23 +4,28 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class CashbackHackServiceTest {
+public class CashBackHackerServiceTest {
 
-    @Test
-    public void testRemain() {
-        CashbackHackService service = new CashbackHackService();
-        int amount = 1000;
-        int actual =service.remain(amount);
-        int expected = 0;
-        assertEquals(actual, expected);
+    CashBackHackerService service = new CashBackHackerService();
+
+    @org.testng.annotations.Test
+    public void ifAmount900() {
+        assertEquals(service.remain(900), 100);
     }
 
     @Test
-    public void testRemainWithCashback() {
-        CashbackHackService service = new CashbackHackService();
-        int amount = 900;
-        int actual = service.remain(amount);
-        int expected = 100;
-        assertEquals(actual, expected);
+    public void ifAmount0() {
+        assertEquals(service.remain(1), 999);
     }
+
+    @Test
+    public void ifAmount5000() {
+        assertEquals(service.remain(5000), 1000);
+    }
+
+    @Test
+    public void ifAmount1000() { // при покупке на 1000 руб. приложение не должно говорить пользователю купить еще на 1000 руб.
+        assertEquals(service.remain(1000), 0);
+    }
+
 }
